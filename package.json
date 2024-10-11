@@ -4,11 +4,14 @@
   "description": "Vaga estágio em desenvolvimento de Software",
   "main": "index.js",
   "scripts": {
-    "start": "node index"
+    "start": "node index",
+    "dev": "nodemon index"
   },
   "author": "Caio Alves",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.21.1"
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "nodemon": "^3.1.7"
   }
 }
