@@ -4,24 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
     <title>To do List</title>
 </head>
-<body>
-    
 
+<body>
 <header>
 
 
     <% if (task == null) { %>
     <form action="/create" method="post">
         <input type="text" name="task" id="task" placeholder="Insira uma Tarefa">
-        <button id="addButton" type='submit'>Adicionar</button>
+        <button id="addButton" type="submit" class="btn btn-success">Adicionar</button>
     </form>
+    
 
     <%} else { %>
     <form action="/updateOne/<%= task._id %>" method="post">
         <input type="text" name="task" id="task" value="<%= task.task %>">
-        <button id="addButton" type='submit'>Atualizar</button>
+        <button type="submit" class="btn btn-success">Atualizar</button>
     </form>
     <% } %>
 
@@ -31,25 +36,30 @@
         <ul>
             <% taskslist.forEach((task)=>{ %>
             <li>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                    </label>
                 <%= task.task %> | <%= task.date.toLocaleDateString('pt-Br') %>
-                <a href='/getById/<%= task._id %>/update'>Editar</a>
-                <a href='/getById/<%= task._id %>/delete'>Apagar</a>
+                <a href='/getById/<%= task._id %>/update' button type="button" class="btn btn-outline-success">Editar</button></a>
+                <a href='/getById/<%= task._id %>/delete' button type="button" class="btn btn-outline-danger">Apagar</button></a>
+                </div>
             </li>
             <% }) %>
         </ul>
-
-
 </section>
 
 <% if (taskDelete != null) { %>
 <section id="modal">
     <div id="card">
-        <a href="/">X</a>
-        <h2>Confirmação</h2>
         <hr>
-        <p>Deseja realmente excluir <%= taskDelete.task %>? </p>
-        <a href="/">Não</a>
-        <a href="/deleteOne/<%= taskDelete._id %>">Sim</a>
+        <div class="alert alert-danger" role="alert">
+            Você clicou para excluir esta Tarefa <a href="/deleteOne/<%= taskDelete._id %>" class="alert-link">Apagar</a>.Será excluído DEFINITIVO.
+        </div>
+        <p>Deseja realmente excluir, <%= taskDelete.task %>? </p>
+        <a href="/" button type="button" class="btn btn-outline-danger">Não</button></a>
+        <a href="/deleteOne/<%= taskDelete._id %>" button type="button" class="btn btn-success">Sim</button></a>
+        
     </div>
 
 </section>
